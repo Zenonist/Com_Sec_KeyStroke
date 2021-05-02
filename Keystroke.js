@@ -1,6 +1,11 @@
 kuser.onkeydown = kuser.onkeyup = KeyEventlistener_User;
 kuser.onkeypress = checkCPM_Username;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Phon_Dev
 kpass.onkeydown = kpass.onkeyup = KeyEventlistener_Pass;
 kpass.onkeypress = checkCPM_Password;
 
@@ -19,6 +24,7 @@ var DUTime = 0;
 var DULastTime = 0;
 var UDTime = 0;
 var UDLastTime = 0;
+<<<<<<< HEAD
 
 function KeyEventlistener_User(e){
     checkDownUpKeyEvent(e,"user");
@@ -29,7 +35,18 @@ function KeyEventlistener_Pass(e){
     checkDownUpKeyEvent(e,"pass");
     checkUpDownKeyEvent(e,"pass");
 }
+=======
+>>>>>>> Phon_Dev
 
+function KeyEventlistener_User(e){
+    checkDownUpKeyEvent(e,"user");
+    checkUpDownKeyEvent(e,"user");
+}
+
+function KeyEventlistener_Pass(e){
+    checkDownUpKeyEvent(e,"pass");
+    checkUpDownKeyEvent(e,"pass");
+}
 // Down-Up
 function checkDownUpKeyEvent(e, input_method){
     console.log("hallo....")
@@ -48,6 +65,7 @@ function checkDownUpKeyEvent(e, input_method){
             }else{
                 DU_user.push(DULastTime - DUTime);
             }
+<<<<<<< HEAD
         }else{
             if (DUTime == 0){
                 DU_pass.push(0);
@@ -83,6 +101,43 @@ function checkDownUpKeyEvent(e, input_method){
             DU_pass = [];
         }
     }
+=======
+        }else{
+            if (DUTime == 0){
+                DU_pass.push(0);
+            }else{
+                DU_pass.push(DULastTime - DUTime);
+            }
+        }
+    }
+    if (e.keyCode == "8"){ // Can use only backspace button
+        //Check that there is removed in the input text (for delete button)
+        var currentLength = 0;
+        if (input_method == "user"){
+            currentLength = document.getElementById('kuser').value.length;
+            if (DU_user.length != 0){
+                DU_user.pop();
+                console.log(DU_user);
+            }
+        }else{
+            currentLength = document.getElementById('kpass').value.length;
+            if (DU_pass.length != 0){
+                DU_pass.pop();
+                console.log(DU_pass);
+            }
+        }
+        console.log("DU_currentLength: " + currentLength);
+    }
+    if (input_method == "user"){
+        if(document.getElementById('kuser').value.length == 0){
+            DU_user = [];
+        }
+    }else{
+        if(document.getElementById('kpass').value.length == 0){
+            DU_pass = [];
+        }
+    }
+>>>>>>> Phon_Dev
 }
 
 //Up-Down
@@ -118,6 +173,7 @@ function checkUpDownKeyEvent(e, input_method){
             if (UD_user.length != 0){
                 UD_user.pop();
                 console.log(UD_user);
+<<<<<<< HEAD
             }
         }else{
             currentLength = document.getElementById('kpass').value.length;
@@ -125,6 +181,15 @@ function checkUpDownKeyEvent(e, input_method){
                 UD_pass.pop();
                 console.log(UD_pass);
             }
+=======
+            }
+        }else{
+            currentLength = document.getElementById('kpass').value.length;
+            if (UD_pass.length != 0){
+                UD_pass.pop();
+                console.log(UD_pass);
+            }
+>>>>>>> Phon_Dev
         }
         console.log("UD_currentLength: " + currentLength);
     }    
@@ -191,9 +256,12 @@ function calAvg(listdata){
     }
     result = result/length;
     return result;
+<<<<<<< HEAD
 }
 
 function rangefinder(avgdata){
     var range = (avgdata * 20) / 100;
     return range;
+=======
+>>>>>>> Phon_Dev
 }
