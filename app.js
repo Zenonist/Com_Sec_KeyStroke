@@ -10,6 +10,13 @@ app.use(express.json());
 app.use(express.static(__dirname + '/'));
 router.use(bodyParser.urlencoded({ extended: true }));
 
+var avg_CPM_user = 0;
+var avg_UD_user = 0;
+var avg_DU_user = 0;
+var avg_CPM_pass = 0;
+var avg_UD_pass = 0;
+var avg_DU_pass = 0;
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -28,29 +35,84 @@ con.connect(function(err) {
 });
 
 function rangefinder(avgdata){
-  var range = (avgdata * 20) / 100;
+  var range = (avgdata * 75) / 100;
   return range;
 }
 app.post('/',(req,res) => {
-  var username = req.body.kuser;
+  var username = req.body.form.kuser;
   var password = req.body.kpass;
-  var sql = 'SELECT * FROM LoginInfo WHERE username=\'' + username + '\'';
+  console.log(username);
+  var sql = 'SELECT * FROM LoginInfo';
   con.query(sql,(err,data) => {
     if(err) throw err;
+    console.log(data);
+  })
+})
 
-    bcrypt.compare(password,data[0].password,function(err,result){
-      if(result == true)
-      {
-
+app.post('/data',function(req, res){
+  console.log('body: ',  JSON.stringify(req.body));
+  res.send(req.body);
+  avg_CPM_user = parseFloat(JSON.stringify(req.body.avg_CPM_user));
+  avg_UD_user = parseFloat(JSON.stringify(req.body.avg_UD_user));
+  avg_DU_user = parseFloat(JSON.stringify(req.body.avg_DU_user));
+  avg_CPM_pass = parseFloat(JSON.stringify(req.body.avg_CPM_pass));
+  avg_UD_pass = parseFloat(JSON.stringify(req.body.avg_UD_pass));
+  avg_DU_pass = parseFloat(JSON.stringify(req.body.avg_DU_pass));
+  var username = req.body.username;
+  var password = req.body.password;
+  var test = "test";
+  console.log(test);
+  var sql = 'SELECT * FROM LoginInfo where username=\'' + username + '\'';
+  console.log(username);
+  con.query(sql,(err,data) => {
+    if(err) throw err;
+    console.log(password)
+    console.log(data[0].password)
+      if(data[0].password == password){
+        console.log("Password pass")
+        if ((data[0].avgCPM_user + rangefinder(data[0].avgCPM_user) >= avg_CPM_user && (data[0].avgCPM_user - rangefinder(data[0].avgCPM_user) <= avg_CPM_user))) {
+          if ((data[0].avgUD_user + rangefinder(data[0].avgUD_user) >= avg_UD_user && (data[0].avgUD_user - rangefinder(data[0].avgUD_user) <= avg_UD_user))) {
+            if ((data[0].avgDU_user + rangefinder(data[0].avgDU_user) >= avg_DU_user && (data[0].avgDU_user - rangefinder(data[0].avgDU_user) <= avg_DU_user))) {
+              if ((data[0].avgCPM_pass + rangefinder(data[0].avgCPM_pass) >= avg_CPM_pass && (data[0].avgCPM_pass - rangefinder(data[0].avgCPM_pass) <= avg_CPM_pass))) {
+                if ((data[0].avgUD_pass + rangefinder(data[0].avgUD_pass) >= avg_UD_pass && (data[0].avgUD_pass - rangefinder(data[0].avgUD_pass) <= avg_UD_pass))) {
+                  if ((data[0].avgDU_pass + rangefinder(data[0].avgDU_pass) >= avg_DU_pass && (data[0].avgDU_pass - rangefinder(data[0].avgDU_pass) <= avg_DU_pass))) {
+                      console.log('Login Successful')
+                  }
+                  else
+                  {
+                    console.log('DU of password time not match');
+                  }
+                }
+                else
+                {
+                  console.log('UD of password time not match');
+                }
+              }
+              else
+              {
+                console.log('CPM of password time not match');
+              }
+            }
+            else
+            {
+              console.log('DU of username time not match');
+            }
+          }
+          else {
+            console.log('UD of username time not match');
+          }
+        }
+        else {
+          console.log('CPM of username time not match');
+        }
       }
       else
       {
-        alert('Wrong password');
+        console.log('Wrong password');
       }
-    })
   })
-
 })
+
 
 app.listen(8081, function(){
   console.log('Listening at Port ' + 8081);
