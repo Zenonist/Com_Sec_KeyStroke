@@ -20,7 +20,7 @@ var avg_DU_pass = 0;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  database: 'wowza'
+  database: 'ccs'
 });
 
 con.connect(function (err) {
@@ -50,7 +50,7 @@ app.post('/register_data', (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
   bcrypt.hash(password, 10, function (err, hash) {
-    var sql = 'INSERT INTO LoginInfo VALUES (\'' + username + '\',\'' + hash + '\',' + avg_DU_user + ',' + avg_UD_user + ',' + avg_CPM_user + ',' + avg_DU_pass + ',' + avg_UD_pass + ',' + avg_CPM_pass + ')';
+    var sql = 'INSERT INTO logininfo VALUES (\'' + username + '\',\'' + hash + '\',' + avg_DU_user + ',' + avg_UD_user + ',' + avg_CPM_user + ',' + avg_DU_pass + ',' + avg_UD_pass + ',' + avg_CPM_pass + ')';
     console.log(hash);
     console.log(username);
     con.query(sql, (err, results) => {
@@ -78,13 +78,13 @@ app.post('/', function (req, res) {
   avg_DU_pass = parseFloat(JSON.stringify(req.body.avg_DU_pass));
   var username = req.body.username;
   //Check if there is this username in the database or not
-  var sql_check_user = 'SELECT EXISTS(SELECT username FROM LoginInfo WHERE username=\'' + username + '\') as result'
+  var sql_check_user = 'SELECT EXISTS(SELECT username FROM logininfo WHERE username=\'' + username + '\') as result'
   con.query(sql_check_user,(err,result) => {
     if (err) throw err;
     console.log(result[0].result);
     if (result[0].result == 1){
       var password = req.body.password;
-      var sql = 'SELECT * FROM LoginInfo where username=\'' + username + '\'';
+      var sql = 'SELECT * FROM logininfo where username=\'' + username + '\'';
       // console.log(username);
       con.query(sql, (err, data) => {
         if (err) throw err;
