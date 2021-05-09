@@ -1,28 +1,7 @@
-<<<<<<< HEAD
 form label {
   display: inline;
   white-space: nowrap;
 }
-=======
-#kinput {
-    font-size: 150%;
-    box-sizing: border-box;
-    width: 95%;
-  }
-  
-  #area {
-    width: 95%;
-    box-sizing: border-box;
-    height: 250px;
-    border: 1px solid black;
-    display: block;
-  }
-  
-  form label {
-    display: inline;
-    white-space: nowrap;
-  }
->>>>>>> master
 
 header{
   margin-left: auto;
@@ -31,7 +10,6 @@ header{
   font-size:x-large;
   padding-bottom: 20px;
   font-weight: bold;
-<<<<<<< HEAD
   color: rgb(255, 255, 255)
 }
 
@@ -64,18 +42,12 @@ body{
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-=======
-}
-body{
-  text-align: center;
->>>>>>> master
 }
 
 form{
   display: inline-block;
 }
 
-<<<<<<< HEAD
 .login {
   width: 320px;
   padding: 20px;
@@ -156,6 +128,3 @@ form{
   text-align:center;
   display: none;
 }
-=======
-  
->>>>>>> master
