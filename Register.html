@@ -66,7 +66,6 @@
             }
             // Down-Up
             function checkDownUpKeyEvent(e, input_method){
-                // console.log("hallo....")
                 if (e.type == "keydown"){
                     if (DUTime == 0){
                         DUTime = new Date().getTime();
@@ -74,9 +73,7 @@
                 }
                 if (e.type == "keyup"){
                     DULastTime = new Date().getTime();
-                    // console.log(input_method);
                     if (input_method == "user"){
-                        // console.log("AAAa")
                         if (DUTime == 0){
                             DU_user.push(0);
                         }else{
@@ -121,7 +118,6 @@
             
             //Up-Down
             function checkUpDownKeyEvent(e, input_method){
-                // console.log("hello");
                 if (e.type == "keyup"){
                     if (UDTime == 0){
                         UDTime = new Date().getTime();
@@ -129,7 +125,6 @@
                 }
                 if (e.type == "keydown"){
                     UDLastTime = new Date().getTime();
-                    // console.log("B:" + DULastTime);
                     if (input_method == "user"){
                         if (UDTime == 0){
                             UD_user.push(0);
@@ -151,16 +146,13 @@
                         currentLength = document.getElementById('kuser').value.length;
                         if (UD_user.length != 0){
                             UD_user.pop();
-                            // console.log(UD_user);
                         }
                     }else{
                         currentLength = document.getElementById('kpass').value.length;
                         if (UD_pass.length != 0){
                             UD_pass.pop();
-                            // console.log(UD_pass);
                         }
                     }
-                    // console.log("UD_currentLength: " + currentLength);
                 }    
                 if (input_method == "user"){
                     if(document.getElementById('kuser').value.length == 0){
@@ -183,13 +175,11 @@
             }
             
             function checkCPM(input_method){
-                // console.log("test");
                 iTime = new Date().getTime();
                 if (iLastTime != 0) {
                     iKeys++;
                     iTotal += iTime - iLastTime;
                     CurrentCPM = Math.round(iKeys / iTotal * 6000, 2);
-                    // console.log(CurrentCPM);
                     if (input_method == "user"){
                         $('#Keys_User').html(iKeys);
                         $('#CPM_User').html(Math.round(iKeys / iTotal * 6000, 2));
@@ -206,7 +196,6 @@
             }
             
             function Submit(){
-                //alert("UD_User" + UD_user +"\nDU_User" + DU_user+ "\nUD_Pass" + UD_pass + "\nDU_Pass" + DU_pass + "\nUD_User_avg" + calAvg(UD_user) + "\nDU_User_avg" + calAvg(DU_user) + "\nUD_Pass_avg" + calAvg(UD_pass) + "\nDU_Pass_avg" + calAvg(DU_pass))
                 console.log("UD_User" + UD_user);
                 console.log("DU_User" + DU_user);
                 console.log("UD_Pass" + UD_pass);
