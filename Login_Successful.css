@@ -1,0 +1,10 @@
+body{
+    text-align: center;
+    color: white;
+    background:  url('https://image.freepik.com/free-photo/fading-blue-background_53876-88684.jpg') no-repeat center center fixed;
+    height: 100%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}

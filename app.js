@@ -38,6 +38,10 @@ router.get('/register', function (req, res) {
   res.sendFile(path.join(__dirname + '/Register.html'));
 })
 
+router.get('/Login_Successful',function (req, res){
+  res.sendFile(path.join(__dirname + '/Login_Successful.html'));
+})
+
 app.post('/register_data', (req, res) => {
   console.log('body: ', JSON.stringify(req.body));
   res.send(req.body);
@@ -63,7 +67,7 @@ app.post('/register_data', (req, res) => {
 })
 
 function rangefinder(avgdata) {
-  var range = (avgdata * 35) / 100;
+  var range = (avgdata * 50) / 100;
   return range;
 }
 

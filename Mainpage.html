@@ -9,27 +9,26 @@
 </head>
 
 <body>
-    <form id="tipper">
-        <input type="text" placeholder="Insert your username here" id="kuser">
+    <header>
+        <h1>Log-in by password and keystroke dynamic</h1>
+        <button id = "toggle">Toggle</button>
+    </header>
+    <form class= "login">
+        <h1>Log-in</h1>
+        <input type="text" placeholder="Insert your username here" id="kuser">      
         <input type="password" placeholder="Insert your password here" id="kpass">
+        <input type="button" value="Login" onclick="Submit()" id="submit">
+    </form>
+    <div id = "CPMData">
         <p>
             <span class="label">CPM_User</span>
             <span id="CPM_User">0</span>
         </p>
         <p>
-            <span class="label">Keys_User</span>
-            <span id="Keys_User">0</span>
-        </p>
-        <p>
             <span class="label">CPM_Pass</span>
             <span id="CPM_Pass">0</span>
         </p>
-        <p>
-            <span class="label">Keys_Pass</span>
-            <span id="Keys_Pass">0</span>
-        </p>
-        <input type="button" value="Submit" onclick="Submit()">
-    </form>
+    </div>
     <script>
         kuser.onkeydown = kuser.onkeyup = KeyEventlistener_User;
         kuser.onkeypress = checkCPM_Username;
@@ -191,11 +190,9 @@
                 CurrentCPM = Math.round(iKeys / iTotal * 6000, 2);
                 // console.log(CurrentCPM);
                 if (input_method == "user") {
-                    $('#Keys_User').html(iKeys);
                     $('#CPM_User').html(Math.round(iKeys / iTotal * 6000, 2));
                     avg_CPM_user = Math.round(iKeys / iTotal * 6000, 2);
                 } else {
-                    $('#Keys_Pass').html(iKeys);
                     $('#CPM_Pass').html(Math.round(iKeys / iTotal * 6000, 2));
                     avg_CPM_pass = Math.round(iKeys / iTotal * 6000, 2);
                 }
@@ -238,6 +235,7 @@
                     success: function (returns) {
                         if (returns == 'Login Successful'){
                             console.log(returns);
+                            window.location = 'http://localhost:8081/Login_Successful'
                         }else{
                             alert(returns);
                             //refresh the webpage
@@ -265,6 +263,13 @@
             return result;
         }
 
+        document.getElementById("toggle").onclick = function() {
+            if (document.getElementById("CPMData").style.display == "block"){
+                document.getElementById("CPMData").style.display = "none"
+            }else{
+                document.getElementById("CPMData").style.display = "block"
+            }
+        }
     </script>
 </body>
 

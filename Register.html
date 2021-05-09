@@ -4,32 +4,32 @@
         <meta charset="utf-8">
         <title>Keystroke</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="Mainpage.css" type="text/css"/>        
+        <link rel="stylesheet" href="Mainpage.css" type="text/css" />     
         
         
     </head>
     <body>
-        <form id="tipper">
-            <input type="text" placeholder="Insert your username here" id = "kuser">
-            <input type="password" placeholder="Insert your password here" id = "kpass">
-            <p> 
+        <header>
+            <h1>Register Page</h1>
+            <button id = "toggle">Toggle</button>
+        </header>
+        <form class= "login">
+            <h1>Register</h1>
+            <input type="text" placeholder="Insert your username here" id="kuser">      
+            <input type="password" placeholder="Insert your password here" id="kpass">
+            <input type="button" value="Register" onclick="Submit()" id="submit">
+        </form>
+        <div id = "CPMData">
+            <p>
                 <span class="label">CPM_User</span>
                 <span id="CPM_User">0</span>
             </p>
-            <p> 
-                <span class="label">Keys_User</span>    
-                <span id="Keys_User">0</span>
-            </p>
-            <p> 
+            <p>
                 <span class="label">CPM_Pass</span>
                 <span id="CPM_Pass">0</span>
             </p>
-            <p> 
-                <span class="label">Keys_Pass</span>    
-                <span id="Keys_Pass">0</span>
-            </p>
-            <input type = "button" value = "Submit" onclick="Submit()">
-        </form>
+        </div>
+    </body>
         <script>
             kuser.onkeydown = kuser.onkeyup = KeyEventlistener_User;
             kuser.onkeypress = checkCPM_Username;
@@ -251,6 +251,13 @@
                 }
                 result = result/length;
                 return result;
+            }
+            document.getElementById("toggle").onclick = function() {
+                if (document.getElementById("CPMData").style.display == "block"){
+                    document.getElementById("CPMData").style.display = "none"
+                }else{
+                    document.getElementById("CPMData").style.display = "block"
+                }
             }
         </script>
     </body>
