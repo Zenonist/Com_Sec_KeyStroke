@@ -68,9 +68,9 @@ app.post('/register_data', (req, res) => {
 
 })
 
-//Use to find the average range of keystroke dynamic to check (Find the most similar to the keystoke dynamic in the database)
+//Use to find the average range of keystroke dynamic to check (Find the most similar to the keystroke dynamic in the database)
 function rangefinder(avgdata) {
-  var range = (avgdata * 50) / 100;
+  var range = (avgdata * 75) / 100;
   return range;
 }
 
@@ -99,13 +99,15 @@ app.post('/', function (req, res) {
         bcrypt.compare(password, data[0].password, function (err, result) {
           if (result == true) {
             console.log("Password pass")
-            //Check the received keystoke dynamic with the one on the database
+            //Check the received keystroke dynamic with the one on the database
             if ((data[0].avgCPM_user + rangefinder(data[0].avgCPM_user) >= avg_CPM_user && (data[0].avgCPM_user - rangefinder(data[0].avgCPM_user) <= avg_CPM_user))) {
               if ((data[0].avgUD_user + rangefinder(data[0].avgUD_user) >= avg_UD_user && (data[0].avgUD_user - rangefinder(data[0].avgUD_user) <= avg_UD_user))) {
                 if ((data[0].avgDU_user + rangefinder(data[0].avgDU_user) >= avg_DU_user && (data[0].avgDU_user - rangefinder(data[0].avgDU_user) <= avg_DU_user))) {
                   if ((data[0].avgCPM_pass + rangefinder(data[0].avgCPM_pass) >= avg_CPM_pass && (data[0].avgCPM_pass - rangefinder(data[0].avgCPM_pass) <= avg_CPM_pass))) {
                     if ((data[0].avgUD_pass + rangefinder(data[0].avgUD_pass) >= avg_UD_pass && (data[0].avgUD_pass - rangefinder(data[0].avgUD_pass) <= avg_UD_pass))) {
                       if ((data[0].avgDU_pass + rangefinder(data[0].avgDU_pass) >= avg_DU_pass && (data[0].avgDU_pass - rangefinder(data[0].avgDU_pass) <= avg_DU_pass))) {
+                        //Update new average keystroke dynamic
+                        updatenewavg(avercalualte(data[0].avgCPM_user,avg_CPM_user),avercalualte(data[0].avgUD_user,avg_UD_user),avercalualte(data[0].avgDU_user,avg_DU_user),avercalualte(data[0].avgCPM_pass,avg_CPM_pass),avercalualte(data[0].avgUD_pass,avg_UD_pass),avercalualte(data[0].avgDU_pass,avg_DU_pass),username);
                         res.send('Login Successful')
                       }
                       else {
@@ -143,6 +145,19 @@ app.post('/', function (req, res) {
     }
   })
 })
+
+function avercalualte(localdata,newdata){
+  average = (localdata + newdata) / 2;
+  return average;
+}
+
+function updatenewavg(avg_CPM_user,avg_UD_user,avg_DU_user,avg_CPM_pass,avg_UD_pass,avg_DU_pass,username){
+  var sql_update = 'UPDATE logininfo SET avgCPM_user = ' + avg_CPM_user + ', avgDU_user =' + avg_DU_user + ', avgUD_user =' + avg_UD_user + ', avgCPM_pass = ' + avg_CPM_pass + ', avgDU_pass ='  + avg_DU_pass + ', avgUD_pass =' + avg_UD_pass + 'where username =\'' + username + '\''
+  con.query(sql_update, (err, res) => {
+    if (err) throw err;
+    console.log('Update successfully');
+  })
+}
 
 app.listen(8081, function () {
   console.log('Listening at Port ' + 8081);
